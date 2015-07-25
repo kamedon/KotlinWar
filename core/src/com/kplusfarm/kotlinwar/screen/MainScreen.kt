@@ -23,20 +23,32 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
 
     var stage: Stage by Delegates.notNull()
     override fun show() {
-        val resolver = InternalFileHandleResolver();
-        asset.setLoader(javaClass<FreeTypeFontGenerator>(), FreeTypeFontGeneratorLoader(resolver));
-        asset.setLoader(javaClass<BitmapFont>(), ".ttf", FreetypeFontLoader(resolver));
+//        val resolver = InternalFileHandleResolver();
+//        asset.setLoader(javaClass<FreeTypeFontGenerator>(), FreeTypeFontGeneratorLoader(resolver));
+//        asset.setLoader(javaClass<BitmapFont>(), ".ttf", FreetypeFontLoader(resolver));
+//
+//        val size1Params = FreetypeFontLoader.FreeTypeFontLoaderParameter();
+//        size1Params.fontFileName = "font/font.ttf";
+//        size1Params.fontParameters.size = 30;
+//        asset.load("font/font.ttf", javaClass<BitmapFont>(), size1Params);
+//
+//        asset.finishLoading()
+//        skin.font = asset.get("font/font.ttf", javaClass<BitmapFont>())
 
-        val size1Params = FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        size1Params.fontFileName = "font/font.ttf";
-        size1Params.fontParameters.size = 30;
-        asset.load("font/font.ttf", javaClass<BitmapFont>(), size1Params);
+
+
+        val generator = FreeTypeFontGenerator(Gdx.files.internal("font/font.ttf"));
+        val parameter = FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.characters = "あいうえお"
+        parameter.size = 12;
+        var font12 = generator.generateFont(parameter);
+        generator.dispose();
 
         stage = Stage(uiViewPoint)
         val skin = TextButton.TextButtonStyle()
-        asset.finishLoading()
-        skin.font = asset.get("font/font.ttf", javaClass<BitmapFont>())
-        val text = TextButton("text", skin)
+        skin.font = font12
+
+        val text = TextButton("1あいうえお", skin)
         val group = Group();
         group.addActor(text)
         group.setPosition((width - text.getPrefWidth()) / 2, (height - text.getPrefHeight()) / 2)
