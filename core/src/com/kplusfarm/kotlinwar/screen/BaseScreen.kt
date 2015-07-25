@@ -9,12 +9,16 @@ import com.kplusfarm.kotlinwar.KotlinWar
 /**
  * Created by kamedon on 7/25/15.
  */
-open public class BaseScreen(private val game: KotlinWar) : ScreenAdapter() {
-    val asset : AssetManager get() = game.asset
+open public class BaseScreen(val game: KotlinWar) : ScreenAdapter() {
+    val asset: AssetManager get() = game.asset
     val uiViewPoint: Viewport get() = game.camera.uiViewport
     val gameViewPoint: Viewport get() = game.camera.gameViewport
     val gameCamera: Camera  get() = game.camera.gameCamera
     val uiCamera: Camera  get() = game.camera.uiCamera
     val width: Float get() = game.camera.width
     val height: Float get() = game.camera.height
+
+    public fun setScreen(screen: BaseScreen) {
+        game.setScreen(screen)
+    }
 }

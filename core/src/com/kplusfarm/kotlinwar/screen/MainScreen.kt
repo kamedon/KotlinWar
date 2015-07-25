@@ -9,9 +9,11 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
 import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
 import kotlin.internal.getProgressionFinalElement
 import kotlin.properties.Delegates
@@ -22,26 +24,27 @@ import kotlin.properties.Delegates
 public class MainScreen(game: KotlinWar) : BaseScreen(game) {
 
     var stage: Stage by Delegates.notNull()
-    override fun show() {
-//        val resolver = InternalFileHandleResolver();
-//        asset.setLoader(javaClass<FreeTypeFontGenerator>(), FreeTypeFontGeneratorLoader(resolver));
-//        asset.setLoader(javaClass<BitmapFont>(), ".ttf", FreetypeFontLoader(resolver));
-//
-//        val size1Params = FreetypeFontLoader.FreeTypeFontLoaderParameter();
-//        size1Params.fontFileName = "font/font.ttf";
-//        size1Params.fontParameters.size = 30;
-//        asset.load("font/font.ttf", javaClass<BitmapFont>(), size1Params);
-//
-//        asset.finishLoading()
-//        skin.font = asset.get("font/font.ttf", javaClass<BitmapFont>())
+    private var font12: BitmapFont by Delegates.notNull()
 
+    override fun show() {
+        //        val resolver = InternalFileHandleResolver();
+        //        asset.setLoader(javaClass<FreeTypeFontGenerator>(), FreeTypeFontGeneratorLoader(resolver));
+        //        asset.setLoader(javaClass<BitmapFont>(), ".ttf", FreetypeFontLoader(resolver));
+        //
+        //        val size1Params = FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        //        size1Params.fontFileName = "font/font.ttf";
+        //        size1Params.fontParameters.size = 30;
+        //        asset.load("font/font.ttf", javaClass<BitmapFont>(), size1Params);
+        //
+        //        asset.finishLoading()
+        //        skin.font = asset.get("font/font.ttf", javaClass<BitmapFont>())
 
 
         val generator = FreeTypeFontGenerator(Gdx.files.internal("font/font.ttf"));
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.characters = "あいうえお"
         parameter.size = 12;
-        var font12 = generator.generateFont(parameter);
+        font12 = generator.generateFont(parameter);
         generator.dispose();
 
         stage = Stage(uiViewPoint)
@@ -49,22 +52,31 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
         skin.font = font12
 
         val text = TextButton("1あいうえお", skin)
+        text.addListener(object : ClickListener() {
+            override fun clicked(event: InputEvent?, x: Float, y: Float) {
+                this@MainScreen.setScreen(BriefingScreen(game))
+            }
+        })
         val group = Group();
         group.addActor(text)
         group.setPosition((width - text.getPrefWidth()) / 2, (height - text.getPrefHeight()) / 2)
         stage.addActor(group)
+
+        Gdx.input.setInputProcessor(stage)
 
     }
 
     override fun render(delta: Float) {
         gameCamera.update();
         if (asset.update() ) {
+            stage.act(delta)
             stage.draw()
         }
     }
 
     override fun hide() {
         stage.dispose()
-        asset.unload("font/font.ttf")
+        font12.dispose()
+//        asset.unload("font/font.ttf")
     }
 }
