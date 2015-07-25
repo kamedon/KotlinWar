@@ -32,12 +32,12 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
     }
 
     override fun render(delta: Float) {
-        game.camera.gameCamera.update();
-        batch.setProjectionMatrix(game.camera.gameCamera.combined);
+        game.gameCamera.update();
+        batch.setProjectionMatrix(game.gameCamera.combined);
         if (game.asset.update() ) {
             batch.begin();
             val font = game.asset.get("font/font.ttf", javaClass<BitmapFont>())
-            font.draw(batch, "First font!", game.camera.width / 2, game.camera.height / 2);
+            font.draw(batch, "First font!", game.width / 2, game.height / 2);
             batch.end();
         }
     }
