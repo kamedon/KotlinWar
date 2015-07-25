@@ -9,25 +9,18 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.badlogic.gdx.utils.viewport.Viewport
 import com.kplusfarm.kotlinwar.screen.MainScreen
 import com.kplusfarm.kotlinwar.service.CameraService
 import kotlin.properties.Delegates
 
 public class KotlinWar : Game() {
-    private var camera: CameraService by Delegates.notNull()
-    val gameCamera: Camera  get() = camera.gameCamera
-    val uiCamera: Camera  get() = camera.uiCamera
-    val width : Float get() = camera.width
-    val height: Float get() = camera.height
-
-
+    var camera: CameraService by Delegates.notNull()
     var asset: AssetManager by Delegates.notNull()
 
     override fun create() {
         asset = AssetManager()
         camera = CameraService(540f);
-
-
         setScreen(MainScreen(this))
     }
 
@@ -35,6 +28,11 @@ public class KotlinWar : Game() {
         Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         super.render()
+    }
+
+    override fun dispose() {
+        super.dispose()
+        asset.dispose()
     }
 
     override fun resize(width: Int, height: Int) {
