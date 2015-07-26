@@ -28,8 +28,6 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
         assetsLoader.loadUnits()
         asset.finishLoading()
 
-
-
         stage = Stage(gameViewPoint)
         val bg = assetsLoader.getBg()
         val bgImage = Image(bg)
@@ -38,6 +36,10 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
         val units = assetsLoader.getUnits()
         val unit = WarUnit(WarUnitImage(Animation(0.25f, units.findRegions("unit"))))
         stage.addActor(unit)
+
+        val ship = WarUnit(WarUnitImage(Animation(0.25f, units.findRegions("ship"))))
+        ship.setPosition(width - ship.getWidth(), 0f)
+        stage.addActor(ship)
 
 
         //Gdx.input.setInputProcessor(stage)
