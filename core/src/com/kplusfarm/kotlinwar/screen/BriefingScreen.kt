@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
-import com.kplusfarm.kotlinwar.service.Assets
+import com.kplusfarm.kotlinwar.service.AssetsLoader
 import kotlin.properties.Delegates
 
 /**
@@ -17,13 +17,12 @@ import kotlin.properties.Delegates
  */
 public class BriefingScreen(game: KotlinWar) : BaseScreen(game) {
     var stage: Stage by Delegates.notNull()
-    //    private var font12: BitmapFont by Delegates.notNull()
 
     override fun show() {
         val skin = TextButton.TextButtonStyle()
-        val assetsLoader = Assets(asset)
-        assetsLoader.loadFont(30)
+        val assetsLoader = AssetsLoader(asset)
         assetsLoader.loadBg()
+        assetsLoader.loadFont(30)
         asset.finishLoading()
         skin.font = assetsLoader.getFont()
 

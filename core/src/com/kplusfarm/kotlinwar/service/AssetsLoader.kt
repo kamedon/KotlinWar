@@ -5,6 +5,8 @@ import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
@@ -12,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
 /**
  * Created by kamedon on 7/26/15.
  */
-public class Assets(val asset: AssetManager) {
+public class AssetsLoader(val asset: AssetManager) {
 
     val fontPath: String = "font/font.ttf"
 
@@ -50,5 +52,13 @@ public class Assets(val asset: AssetManager) {
 
     fun getBg(): Texture {
         return asset.get("bg/bg_01.jpg", javaClass<Texture>())
+    }
+
+    fun loadUnits() {
+        asset.load("unit/pack.atlas", javaClass<TextureAtlas>())
+    }
+
+    fun getUnits(): TextureAtlas {
+        return asset.get("unit/pack.atlas", javaClass<TextureAtlas>())
     }
 }

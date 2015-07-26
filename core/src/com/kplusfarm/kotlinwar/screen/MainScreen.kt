@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
-import com.kplusfarm.kotlinwar.service.Assets
+import com.kplusfarm.kotlinwar.service.AssetsLoader
 import kotlin.internal.getProgressionFinalElement
 import kotlin.properties.Delegates
 
@@ -31,7 +31,7 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
 
     override fun show() {
         val skin = TextButton.TextButtonStyle()
-        val assetsLoader = Assets(asset)
+        val assetsLoader = AssetsLoader(asset)
         assetsLoader.loadFont(30)
         assetsLoader.loadBg()
         asset.finishLoading()
