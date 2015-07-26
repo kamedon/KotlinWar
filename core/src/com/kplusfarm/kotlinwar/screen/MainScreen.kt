@@ -33,13 +33,13 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
         val skin = TextButton.TextButtonStyle()
         val assetsLoader = Assets(asset)
         assetsLoader.loadFont(30)
-        asset.load("bg/bg_01.jpg", javaClass<Texture>())
+        assetsLoader.loadBg()
         asset.finishLoading()
         skin.font = assetsLoader.getFont()
 
         stage = Stage(uiViewPoint)
         //        skin.font = font12
-        val bg = assetsLoader.loadBg()
+        val bg = assetsLoader.getBg()
         var image = Image(bg)
         stage.addActor(image)
 
@@ -68,6 +68,6 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
 
     override fun hide() {
         stage.dispose()
-        asset.dispose()
+        asset.clear()
     }
 }

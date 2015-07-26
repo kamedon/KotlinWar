@@ -44,7 +44,11 @@ public class Assets(val asset: AssetManager) {
         return asset.get(fontPath, javaClass<BitmapFont>())
     }
 
-    fun loadBg(): Texture{
-         return asset.get("bg/bg_01.jpg", javaClass<Texture>())
+    fun loadBg() {
+        asset.load("bg/bg_01.jpg", javaClass<Texture>())
+    }
+
+    fun getBg(): Texture {
+        return asset.get("bg/bg_01.jpg", javaClass<Texture>())
     }
 }
