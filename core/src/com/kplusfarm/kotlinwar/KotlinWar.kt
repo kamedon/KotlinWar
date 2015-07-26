@@ -20,8 +20,9 @@ public class KotlinWar : Game() {
 
     override fun create() {
         asset = AssetManager()
-        camera = CameraService(540f);
+        camera = CameraService(960f);
         setScreen(MainScreen(this))
+        Gdx.app.log("screen_size", camera.width.toString() + "x" + camera.height.toString())
     }
 
     override fun render() {

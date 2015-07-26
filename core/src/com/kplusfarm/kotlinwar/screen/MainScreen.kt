@@ -3,6 +3,7 @@ package com.kplusfarm.kotlinwar.screen
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
@@ -11,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
@@ -42,8 +44,8 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
 
         val generator = FreeTypeFontGenerator(Gdx.files.internal("font/font.ttf"));
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.characters = "あいうえお"
-        parameter.size = 12;
+        parameter.characters = "START"
+        parameter.size = 30;
         font12 = generator.generateFont(parameter);
         generator.dispose();
 
@@ -51,7 +53,13 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
         val skin = TextButton.TextButtonStyle()
         skin.font = font12
 
-        val text = TextButton("1あいうえお", skin)
+        asset.load("bg/bg_01.jpg", javaClass<Texture>())
+        asset.finishLoading()
+        val bg = asset.get("bg/bg_01.jpg", javaClass<Texture>())
+        var image = Image(bg)
+        stage.addActor(image)
+
+        val text = TextButton("START", skin)
         text.addListener(object : ClickListener() {
             override fun clicked(event: InputEvent?, x: Float, y: Float) {
                 this@MainScreen.setScreen(BriefingScreen(game))
@@ -62,13 +70,13 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
         group.setPosition((width - text.getPrefWidth()) / 2, (height - text.getPrefHeight()) / 2)
         stage.addActor(group)
 
-        Gdx.input.setInputProcessor(stage)
 
+        Gdx.input.setInputProcessor(stage)
     }
 
     override fun render(delta: Float) {
         gameCamera.update();
-        if (asset.update() ) {
+        if (asset.update()) {
             stage.act(delta)
             stage.draw()
         }
@@ -77,6 +85,7 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
     override fun hide() {
         stage.dispose()
         font12.dispose()
-//        asset.unload("font/font.ttf")
+        asset.dispose()
+        //        asset.unload("font/font.ttf")
     }
 }
