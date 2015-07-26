@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
+import com.kplusfarm.kotlinwar.service.Assets
 import kotlin.internal.getProgressionFinalElement
 import kotlin.properties.Delegates
 
@@ -26,33 +27,19 @@ import kotlin.properties.Delegates
 public class MainScreen(game: KotlinWar) : BaseScreen(game) {
 
     var stage: Stage by Delegates.notNull()
-//    private var font12: BitmapFont by Delegates.notNull()
+    //    private var font12: BitmapFont by Delegates.notNull()
 
     override fun show() {
         val skin = TextButton.TextButtonStyle()
-        val resolver = InternalFileHandleResolver();
-        asset.setLoader(javaClass<FreeTypeFontGenerator>(), FreeTypeFontGeneratorLoader(resolver));
-        asset.setLoader(javaClass<BitmapFont>(), ".ttf", FreetypeFontLoader(resolver));
-
-        val size1Params = FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        size1Params.fontFileName = "font/font.ttf";
-        size1Params.fontParameters.size = 30;
-        asset.load("font/font.ttf", javaClass<BitmapFont>(), size1Params);
+        val assetsLoader = Assets(asset)
+        assetsLoader.loadFont(30)
         asset.load("bg/bg_01.jpg", javaClass<Texture>())
         asset.finishLoading()
-        skin.font = asset.get("font/font.ttf", javaClass<BitmapFont>())
-
-
-//        val generator = FreeTypeFontGenerator(Gdx.files.internal("font/font.ttf"));
-//        val parameter = FreeTypeFontGenerator.FreeTypeFontParameter();
-//        parameter.characters = "START"
-//        parameter.size = 30;
-//        font12 = generator.generateFont(parameter);
-//        generator.dispose();
+        skin.font = assetsLoader.getFont()
 
         stage = Stage(uiViewPoint)
-//        skin.font = font12
-        val bg = asset.get("bg/bg_01.jpg", javaClass<Texture>())
+        //        skin.font = font12
+        val bg = assetsLoader.loadBg()
         var image = Image(bg)
         stage.addActor(image)
 
@@ -82,6 +69,5 @@ public class MainScreen(game: KotlinWar) : BaseScreen(game) {
     override fun hide() {
         stage.dispose()
         asset.dispose()
-        //        asset.unload("font/font.ttf")
     }
 }
