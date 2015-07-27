@@ -9,9 +9,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
+import com.kplusfarm.kotlinwar.entity.Bullet.Beam
 import com.kplusfarm.kotlinwar.entity.Ship
 import com.kplusfarm.kotlinwar.entity.WarUnit
 import com.kplusfarm.kotlinwar.entity.image.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.weapon.BeamRifle
 import com.kplusfarm.kotlinwar.service.AssetsLoader
 import kotlin.properties.Delegates
 
@@ -37,12 +39,15 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
 
         val units = assetsLoader.getUnits()
         val unit = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
+        val beam = Beam(WarUnitImage(Animation(1f, units.findRegion("bullet"))))
+        val rifle = BeamRifle(units.findRegion("bullet"), beam)
         stage.addActor(unit)
 
         val ship = Ship(WarUnitImage(Animation(0.125f, units.findRegions("ship"))))
         ship.setPosition(width - ship.getWidth(), 0f)
         ship.addAction(Actions.moveTo(0f, 500f, 100f))
 
+        unit.weapon = rifle
         unit.target = ship
         stage.addActor(ship)
 

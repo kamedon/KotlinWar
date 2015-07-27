@@ -1,16 +1,16 @@
-package com.kplusfarm.kotlinwar.entity
+package com.kplusfarm.kotlinwar.entity.Bullet
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
+import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.image.WarUnitImage
 
 /**
  * Created by kamedon on 7/27/15.
  */
 open class Bullet(image: WarUnitImage) : GameObject(image) {
-    val velocity: Float = 10f
-    var target: WarUnit? = null
+    val velocity: Float = 5f
     var degree: Float = 0f;
     var to: Vector2? = null
         set(value) {
