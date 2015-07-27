@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.FPSLogger
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
+import com.kplusfarm.kotlinwar.entity.Ship
 import com.kplusfarm.kotlinwar.entity.WarUnit
 import com.kplusfarm.kotlinwar.entity.image.WarUnitImage
 import com.kplusfarm.kotlinwar.service.AssetsLoader
@@ -34,13 +36,15 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
         stage.addActor(bgImage)
 
         val units = assetsLoader.getUnits()
-        val unit = WarUnit(WarUnitImage(Animation(0.25f, units.findRegions("unit"))))
+        val unit = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
         stage.addActor(unit)
 
-        val ship = WarUnit(WarUnitImage(Animation(0.25f, units.findRegions("ship"))))
+        val ship = Ship(WarUnitImage(Animation(0.125f, units.findRegions("ship"))))
         ship.setPosition(width - ship.getWidth(), 0f)
-        stage.addActor(ship)
+        ship.addAction(Actions.moveTo(0f, 500f, 100f))
 
+        unit.target = ship
+        stage.addActor(ship)
 
         //Gdx.input.setInputProcessor(stage)
     }
