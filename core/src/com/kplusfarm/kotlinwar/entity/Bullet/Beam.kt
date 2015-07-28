@@ -1,5 +1,6 @@
 package com.kplusfarm.kotlinwar.entity.Bullet;
 
+import com.badlogic.gdx.math.Vector2
 import com.kplusfarm.kotlinwar.entity.image.WarUnitImage
 
 /**

@@ -39,16 +39,23 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
 
         val units = assetsLoader.getUnits()
         val unit = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
+        val unit2 = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
+        unit2.angle = 0.03f
+        unit2.velocity = 4f
+
         val beam = Beam(WarUnitImage(Animation(1f, units.findRegion("bullet"))))
         val rifle = BeamRifle(units.findRegion("bullet"), beam)
         stage.addActor(unit)
+        stage.addActor(unit2)
 
         val ship = Ship(WarUnitImage(Animation(0.125f, units.findRegions("ship"))))
         ship.setPosition(width - ship.getWidth(), 0f)
-        ship.addAction(Actions.moveTo(0f, 500f, 100f))
+        ship.addAction(Actions.moveTo(0f, 500f, 15f))
 
         unit.weapon = rifle
         unit.target = ship
+        unit2.weapon = rifle
+        unit2.target = ship
         stage.addActor(ship)
 
         //Gdx.input.setInputProcessor(stage)
