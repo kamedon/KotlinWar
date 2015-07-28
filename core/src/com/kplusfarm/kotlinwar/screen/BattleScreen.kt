@@ -1,5 +1,6 @@
 package com.kplusfarm.kotlinwar.screen;
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.FPSLogger
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.scenes.scene2d.InputEvent
@@ -40,22 +41,31 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
         val units = assetsLoader.getUnits()
         val unit = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
         val unit2 = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
-        unit2.angle = 0.03f
+        unit2.angle = 0.1f
         unit2.velocity = 4f
+        unit2.setColor(Color.GREEN)
+
+        val unit3 = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
+        unit3.setColor(Color.RED)
+        unit3.angle = 1f
+        unit3.velocity = 3f
 
         val beam = Beam(WarUnitImage(Animation(1f, units.findRegion("bullet"))))
-        val rifle = BeamRifle(units.findRegion("bullet"), beam)
         stage.addActor(unit)
         stage.addActor(unit2)
+        stage.addActor(unit3)
 
         val ship = Ship(WarUnitImage(Animation(0.125f, units.findRegions("ship"))))
         ship.setPosition(width - ship.getWidth(), 0f)
-        ship.addAction(Actions.moveTo(0f, 500f, 15f))
+        ship.addAction(Actions.sequence(Actions.moveTo(0f, 500f, 10f),
+                Actions.moveTo(300f, 0f, 3f), Actions.moveTo(width - ship.getWidth(), height - ship.getHeight(), 9f)))
 
-        unit.weapon = rifle
+        unit.weapon = BeamRifle(units.findRegion("bullet"), beam)
         unit.target = ship
-        unit2.weapon = rifle
+        unit2.weapon = BeamRifle(units.findRegion("bullet"), beam)
         unit2.target = ship
+        unit3.weapon = BeamRifle(units.findRegion("bullet"), beam)
+        unit3.target = ship
         stage.addActor(ship)
 
         //Gdx.input.setInputProcessor(stage)
