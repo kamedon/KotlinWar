@@ -14,7 +14,7 @@ open public class GameObject(val image: WarUnitImage) : Actor() {
 
     protected var runtime: Float = 0f
 
-    private var region: TextureRegion? = null
+    var region: TextureRegion? = null
 
     val centerX: Float get() = getX() + getOriginX()
     val centerY: Float get() = getY() + getOriginY()
