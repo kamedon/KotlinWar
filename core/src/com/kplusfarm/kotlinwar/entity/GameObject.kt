@@ -7,13 +7,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.utils.Pool
 import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
+import com.kplusfarm.kotlinwar.util.kdmap.MortonNode
+
 
 /**
  * Created by kamedon on 7/26/15.
  */
 abstract public class GameObject() : Actor(), Pool.Poolable {
 
+    val alive: Boolean get() = !dead
+    var dead = false
     protected var runtime: Float = 0f
+    var node: MortonNode? = null
 
     var image: WarUnitImage? = null
     var region: TextureRegion? = null
@@ -22,6 +27,7 @@ abstract public class GameObject() : Actor(), Pool.Poolable {
     val centerY: Float get() = getY() + getOriginY()
 
     open public fun active() {
+        dead = false
         sizeChanged()
         positionChanged()
     }
@@ -52,10 +58,13 @@ abstract public class GameObject() : Actor(), Pool.Poolable {
 
 
     override fun reset() {
+        dead = true
         image = null
         region = null
         runtime = 0f;
+        node = null
     }
+
 }
 
 

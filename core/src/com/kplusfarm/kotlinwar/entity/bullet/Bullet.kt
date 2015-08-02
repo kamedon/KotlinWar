@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Pools
 import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 
 /**
  * Created by kamedon on 7/27/15.
@@ -35,5 +36,9 @@ open class Bullet() : GameObject() {
             setColor(Color.OLIVE)
         }
 
+    }
+
+    fun collide(warUnit: WarUnit): Boolean {
+        return  false
     }
 }
