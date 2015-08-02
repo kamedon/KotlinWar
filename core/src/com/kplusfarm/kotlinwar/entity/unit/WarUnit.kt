@@ -1,10 +1,11 @@
-package com.kplusfarm.kotlinwar.entity
+package com.kplusfarm.kotlinwar.entity.unit
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
-import com.kplusfarm.kotlinwar.entity.Bullet.Bullet
-import com.kplusfarm.kotlinwar.entity.image.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.GameObject
+import com.kplusfarm.kotlinwar.entity.bullet.Bullet
+import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 import com.kplusfarm.kotlinwar.entity.weapon.Weapon
 
 /**

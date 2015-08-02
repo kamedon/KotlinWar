@@ -2,8 +2,9 @@ package com.kplusfarm.kotlinwar.entity.weapon
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.Vector2
-import com.kplusfarm.kotlinwar.entity.Bullet.Bullet
+import com.kplusfarm.kotlinwar.entity.bullet.Bullet
 import com.kplusfarm.kotlinwar.entity.WarUnit
+import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 
 /**
  * Created by kamedon on 7/28/15.

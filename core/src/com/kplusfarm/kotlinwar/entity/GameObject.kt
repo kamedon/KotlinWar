@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
-import com.kplusfarm.kotlinwar.entity.image.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 
 /**
  * Created by kamedon on 7/26/15.

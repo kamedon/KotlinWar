@@ -10,10 +10,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
-import com.kplusfarm.kotlinwar.entity.Bullet.Beam
-import com.kplusfarm.kotlinwar.entity.Ship
+import com.kplusfarm.kotlinwar.entity.bullet.Beam
+import com.kplusfarm.kotlinwar.entity.ship.Ship
 import com.kplusfarm.kotlinwar.entity.WarUnit
-import com.kplusfarm.kotlinwar.entity.image.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 import com.kplusfarm.kotlinwar.entity.weapon.BeamRifle
 import com.kplusfarm.kotlinwar.service.AssetsLoader
 import kotlin.properties.Delegates

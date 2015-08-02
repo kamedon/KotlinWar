@@ -1,4 +1,4 @@
-package com.kplusfarm.kotlinwar.entity.image
+package com.kplusfarm.kotlinwar.entity.asset
 
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureAtlas

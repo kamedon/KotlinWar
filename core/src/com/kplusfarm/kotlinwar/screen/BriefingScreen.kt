@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
 import com.kplusfarm.kotlinwar.entity.Funds
 import com.kplusfarm.kotlinwar.entity.WarUnit
-import com.kplusfarm.kotlinwar.entity.image.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 import com.kplusfarm.kotlinwar.service.AssetsLoader
 import kotlin.properties.Delegates
 
