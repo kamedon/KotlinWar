@@ -32,11 +32,11 @@ open class Bullet() : GameObject() {
 
         if (runtime > 3f) {
             remove()
-            Pools.free(this)
-            setColor(Color.OLIVE)
+            removeRun()
         }
 
     }
+
 
     fun collide(warUnit: WarUnit): Boolean {
         return  false

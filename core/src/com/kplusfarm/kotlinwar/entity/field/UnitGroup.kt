@@ -9,7 +9,7 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
  */
 class UnitGroup(val team: Team) : Group() {
 
-    public val units: SnapshotArray<WarUnit> = SnapshotArray<WarUnit>()
+    val units: SnapshotArray<WarUnit> = SnapshotArray()
 
     public fun add(unit: WarUnit) {
         unit.team = team

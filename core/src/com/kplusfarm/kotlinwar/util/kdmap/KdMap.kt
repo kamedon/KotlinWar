@@ -2,7 +2,7 @@ package com.kplusfarm.kotlinwar.util.kdmap
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Matrix4
-import com.badlogic.gdx.utils.Array
+import com.badlogic.gdx.utils.Array  as GdxArray
 import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.bullet.Bullet
 import com.kplusfarm.kotlinwar.entity.unit.WarUnit
@@ -10,7 +10,7 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 /**
  * Created by kamedon on 15/03/19.
  */
-public class KdMap(public val width: Int, public val height: Int, public val level: Int) {
+public class KdMap(public val width: Float, public val height: Float, public val level: Int) {
     public val spanX: Float
     public val spanY: Float
     public val count: Int
@@ -20,30 +20,29 @@ public class KdMap(public val width: Int, public val height: Int, public val lev
     private val mMap: Array<MortonQueue>
 
     init {
-        this.line = Math.pow(2.0, this.level.toDouble()).toInt()
+        this.line = Math.pow(2.0, level.toDouble()).toInt()
         this.mortonLine = line - 1
-        spanX = width.toFloat() / line
-        spanY = height.toFloat() / line
-        mLevelCount = IntArray(this.level + 2)
-        for (i in mLevelCount.indices) {
+        spanX = width / line
+        spanY = height / line
+        mLevelCount = IntArray(level + 2)
+        for (i in 0..mLevelCount.count() - 1) {
             mLevelCount[i] = ((Math.pow(4.0, i.toDouble()) - 1) / 3).toInt()
         }
-        mMap = Array(mLevelCount[mLevelCount.size() - 1])
+        //        mMap = Array(mLevelCount[mLevelCount.size() - 1])
         var l = 0
-        var count = 0
-        for (i in 0..mMap.count()) {
-            if (i >= mLevelCount[l]) {
-                count = mLevelCount[l]
+        var c = 0
+        mMap = Array(mLevelCount[mLevelCount.size() - 1], {
+            if (it >= mLevelCount[l]) {
+                c = mLevelCount[l]
                 ++l
             }
-            val morton = i - count
-            mMap[i] = MortonQueue(l - 1, i, morton, this)
-        }
-        //        Gdx.app.log("kdmap", "count" + count);
+            val morton = it - c
+            MortonQueue(l - 1, it, morton, this)
+        })
         this.count = mMap.count()
     }
 
-    public fun collide(index: Int, kdMap: KdMap, bullets: Array<Bullet>, units: Array<WarUnit>, callback: OnCollideCallback) {
+    public fun collide(index: Int, kdMap: KdMap, bullets: GdxArray<Bullet>, units: GdxArray<WarUnit>, callback: OnCollideCallback) {
         if (index >= mMap.count()) {
             return
         }
@@ -108,7 +107,7 @@ public class KdMap(public val width: Int, public val height: Int, public val lev
     }
 
 
-    public fun update(gameObject : GameObject) {
+    public fun update(gameObject: GameObject) {
         val id = calcIndex(gameObject)
         if (gameObject.node?.getIndex() !== id) {
             gameObject.node?.move(mMap[id])
