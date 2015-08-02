@@ -8,7 +8,7 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 /**
  * Created by kamedon on 7/27/15.
  */
-public class Ship(image: WarUnitImage) : WarUnit(image) {
+public class Ship() : WarUnit() {
     override fun moveFor(target: WarUnit, delta: Float) {
     }
 

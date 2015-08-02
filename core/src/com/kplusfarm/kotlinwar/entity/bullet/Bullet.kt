@@ -1,17 +1,20 @@
 package com.kplusfarm.kotlinwar.entity.bullet
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.utils.Pools
 import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 
 /**
  * Created by kamedon on 7/27/15.
  */
-open class Bullet(image: WarUnitImage) : GameObject(image) {
+open class Bullet() : GameObject() {
     val velocity: Float = 5f
     var degree: Float = 0f;
+
     var to: Vector2? = null
         set(value) {
             $to = value
@@ -28,6 +31,8 @@ open class Bullet(image: WarUnitImage) : GameObject(image) {
 
         if (runtime > 3f) {
             remove()
+            Pools.free(this)
+            setColor(Color.OLIVE)
         }
 
     }

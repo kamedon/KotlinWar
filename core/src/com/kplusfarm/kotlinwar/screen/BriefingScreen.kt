@@ -58,18 +58,22 @@ public class BriefingScreen(game: KotlinWar) : BaseScreen(game) {
         val unitAsset = assetsLoader.getUnits()
         var warUnitAsset = WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
         repeat(5) {
-            val unit = Ship(warUnitAsset)
+            val unit = Ship()
+            unit.image = warUnitAsset
             unit.setPosition(50f, it * 65f)
             unit.region = warUnitAsset.acts.getKeyFrame(0f)
+            unit.active()
 
             battleFieldLayout.addActor(unit)
         }
 
         repeat(5) {
-            val unit = Ship(warUnitAsset)
+            val unit = Ship()
+            unit.image = warUnitAsset
             unit.setPosition(battleFieldLayout.getWidth() - unit.getWidth() -50, it * 65f)
             unit.setColor(Color.GREEN)
             unit.region = warUnitAsset.acts.getKeyFrame(0f)
+            unit.active()
 
             battleFieldLayout.addActor(unit)
         }

@@ -6,5 +6,5 @@ import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 /**
  * Created by kamedon on 7/28/15.
  */
-public class Beam(image: WarUnitImage) : Bullet(image) {
+public class Beam() : Bullet() {
 }

@@ -1,13 +1,14 @@
 package com.kplusfarm.kotlinwar.entity.weapon
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.utils.Pool
 import com.kplusfarm.kotlinwar.entity.bullet.Bullet
 import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 
 /**
  * Created by kamedon on 7/28/15.
  */
-abstract class Weapon(val region: TextureAtlas.AtlasRegion?, val bullet: Bullet) {
+abstract class Weapon(var region: TextureAtlas.AtlasRegion?, var bullet: Bullet?) : Pool.Poolable {
     var span: Float = 3f
     var r = 0f;
 
@@ -21,4 +22,9 @@ abstract class Weapon(val region: TextureAtlas.AtlasRegion?, val bullet: Bullet)
     }
 
     abstract fun createBullet(self: WarUnit, target: WarUnit): Bullet
+
+    override fun reset() {
+        bullet = null
+        region = null
+    }
 }

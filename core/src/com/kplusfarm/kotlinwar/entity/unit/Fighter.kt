@@ -7,7 +7,7 @@ import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
  * Created by kamedon on 8/2/15.
  */
 
-class Fighter(image: WarUnitImage) : WarUnit(image) {
+class Fighter() : WarUnit() {
     private var dir = Vector2()
 
     override fun moveFor(target: WarUnit, delta: Float) {

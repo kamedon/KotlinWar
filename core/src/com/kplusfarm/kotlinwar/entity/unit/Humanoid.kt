@@ -7,7 +7,7 @@ import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 /**
  * Created by kamedon on 8/2/15.
  */
-class Humanoid(image: WarUnitImage) : WarUnit(image) {
+class Humanoid() : WarUnit() {
 
     override fun moveFor(target: WarUnit, delta: Float) {
         val point = Vector2(target.centerX - centerX, target.centerY - centerY)
