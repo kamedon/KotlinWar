@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.utils.Pool
 import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.field.Team
 import com.kplusfarm.kotlinwar.util.kdmap.MortonNode
 
 
@@ -14,6 +15,7 @@ import com.kplusfarm.kotlinwar.util.kdmap.MortonNode
  * Created by kamedon on 7/26/15.
  */
 abstract public class GameObject() : Actor(), Pool.Poolable {
+    var team: Team? = null
 
     val alive: Boolean get() = !dead
     var dead = false
@@ -63,6 +65,7 @@ abstract public class GameObject() : Actor(), Pool.Poolable {
         region = null
         runtime = 0f;
         node = null
+        team = null
     }
 
 }
