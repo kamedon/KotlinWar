@@ -12,8 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
 import com.kplusfarm.kotlinwar.entity.bullet.Beam
 import com.kplusfarm.kotlinwar.entity.ship.Ship
-import com.kplusfarm.kotlinwar.entity.WarUnit
 import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.unit.Fighter
+import com.kplusfarm.kotlinwar.entity.unit.Humanoid
+import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 import com.kplusfarm.kotlinwar.entity.weapon.BeamRifle
 import com.kplusfarm.kotlinwar.service.AssetsLoader
 import kotlin.properties.Delegates
@@ -39,13 +41,13 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
         stage.addActor(bgImage)
 
         val units = assetsLoader.getUnits()
-        val unit = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
-        val unit2 = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
+        val unit = Humanoid(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
+        val unit2 = Fighter(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
         unit2.angle = 0.1f
         unit2.velocity = 4f
         unit2.setColor(Color.GREEN)
 
-        val unit3 = WarUnit(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
+        val unit3 = Humanoid(WarUnitImage(Animation(0.125f, units.findRegions("unit"))))
         unit3.setColor(Color.RED)
         unit3.angle = 1f
         unit3.velocity = 3f

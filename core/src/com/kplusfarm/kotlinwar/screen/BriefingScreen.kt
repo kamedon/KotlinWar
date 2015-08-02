@@ -2,17 +2,21 @@ package com.kplusfarm.kotlinwar.screen;
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.Stage
-import com.badlogic.gdx.scenes.scene2d.ui.*
+import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.Label
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.kplusfarm.kotlinwar.KotlinWar
 import com.kplusfarm.kotlinwar.entity.Funds
-import com.kplusfarm.kotlinwar.entity.WarUnit
 import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.ship.Ship
+import com.kplusfarm.kotlinwar.entity.unit.Humanoid
+import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 import com.kplusfarm.kotlinwar.service.AssetsLoader
 import kotlin.properties.Delegates
 
@@ -54,7 +58,7 @@ public class BriefingScreen(game: KotlinWar) : BaseScreen(game) {
         val unitAsset = assetsLoader.getUnits()
         var warUnitAsset = WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
         repeat(5) {
-            val unit = WarUnit(warUnitAsset)
+            val unit = Ship(warUnitAsset)
             unit.setPosition(50f, it * 65f)
             unit.region = warUnitAsset.acts.getKeyFrame(0f)
 
@@ -62,7 +66,7 @@ public class BriefingScreen(game: KotlinWar) : BaseScreen(game) {
         }
 
         repeat(5) {
-            val unit = WarUnit(warUnitAsset)
+            val unit = Ship(warUnitAsset)
             unit.setPosition(battleFieldLayout.getWidth() - unit.getWidth() -50, it * 65f)
             unit.setColor(Color.GREEN)
             unit.region = warUnitAsset.acts.getKeyFrame(0f)
