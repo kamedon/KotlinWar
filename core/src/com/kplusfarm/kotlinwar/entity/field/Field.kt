@@ -8,4 +8,8 @@ import com.sun.prism.image.ViewPort
  * Created by kamedon on 8/2/15.
  */
 class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: Team) : Stage(viewport: Viewport) {
+    init {
+        addActor(enemyTeam)
+        addActor(myTeam)
+    }
 }
