@@ -1,12 +1,9 @@
 package com.kplusfarm.kotlinwar.entity.bullet
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.utils.Pools
 import com.kplusfarm.kotlinwar.entity.GameObject
-import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 
 /**
@@ -39,6 +36,7 @@ open class Bullet() : GameObject() {
 
 
     fun collide(warUnit: WarUnit): Boolean {
-        return  false
+
+        return team != warUnit.team && Vector2.len(warUnit.centerX - centerX, warUnit.centerY - centerY) < radius + warUnit.radius
     }
 }

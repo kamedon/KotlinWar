@@ -39,12 +39,12 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
     }
 
     public fun collide(bullets: Array<Bullet>, units: Array<WarUnit>, callback: KdMap.OnCollideCallback) {
-        callback.onCollideNode(this)
+        Gdx.app.log("collide","start")
         if (gameObject is WarUnit) {
             var unit = gameObject as WarUnit;
-            for (i in bullets.items.indices) {
+            for (i in 0..bullets.size - 1) {
                 if (bullets.items[i] != null && bullets.items[i].alive && gameObject.alive) {
-                    callback.onCollide(bullets.items[i], gameObject, bullets.items[i].collide(unit))
+                    callback.onCollide(bullets.items[i], unit, bullets.items[i].collide(unit))
                 }
             }
             if (gameObject.alive) {
@@ -53,7 +53,7 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
 
         } else if (gameObject is Bullet) {
             val bullet = gameObject as Bullet
-            for (i in units.items.indices) {
+            for (i in  0..units.size - 1) {
                 if (units.items[i] != null && units.items[i].alive && bullet.alive) {
                     callback.onCollide(bullet, units.items[i], bullet.collide(units.items[i]))
                 }

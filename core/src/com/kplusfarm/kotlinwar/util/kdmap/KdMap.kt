@@ -127,11 +127,7 @@ public class KdMap(public val width: Float, public val height: Float, public val
     }
 
     public interface OnCollideCallback {
-        public fun onCollideQueue(queue: MortonQueue)
-
-        public fun onCollideNode(mortonNode: MortonNode)
-
-        public fun onCollide(bullet: Bullet, unit: GameObject, colliding: Boolean)
+        public fun onCollide(bullet: Bullet, unit: WarUnit, colliding: Boolean)
     }
 
     public interface OnNearestCallback {

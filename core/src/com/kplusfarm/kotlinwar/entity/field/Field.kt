@@ -21,13 +21,18 @@ class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: T
     }
 
     private fun collide(delta: Float) {
+        collide(myTeam.unitGroup, enemyTeam.bulletGroup, delta);
+        collide(enemyTeam.unitGroup, myTeam.bulletGroup, delta);
+    }
+
+    private fun collide(units: UnitGroup, bullets: BulletGroup, delta: Float) {
+        units.collide(bullets)
     }
 
     private fun near(delta: Float) {
-        Gdx.app.log("near","my:"+myTeam.unitSize)
-        if(myTeam.unitSize > 0 && enemyTeam.unitSize > 0){
-            near(myTeam,enemyTeam,delta)
-            near(enemyTeam,myTeam,delta)
+        if (myTeam.unitSize > 0 && enemyTeam.unitSize > 0) {
+            near(myTeam, enemyTeam, delta)
+            near(enemyTeam, myTeam, delta)
         }
     }
 

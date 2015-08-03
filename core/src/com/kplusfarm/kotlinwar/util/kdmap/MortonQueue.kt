@@ -1,6 +1,6 @@
 package com.kplusfarm.kotlinwar.util.kdmap
 
-import com.badlogic.gdx.utils.Array
+import com.badlogic.gdx.utils.Array as GdxArray
 import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.bullet.Bullet
 import com.kplusfarm.kotlinwar.entity.unit.WarUnit
@@ -11,8 +11,8 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 public class MortonQueue(public val level: Int, public val index: Int, public val morton: Int, private val mMap: KdMap) {
     public var firstNode: MortonNode? = null
     public var lastNode: MortonNode? = null
-    private val mCacheBullets = Array<Bullet>(javaClass<Bullet>())
-    private val mCacheUnits = Array<WarUnit>(javaClass<WarUnit>())
+    private val mCacheBullets = GdxArray<Bullet>(javaClass<Bullet>())
+    private val mCacheUnits = GdxArray<WarUnit>(javaClass<WarUnit>())
 
     public fun add(node: MortonNode) {
         if (firstNode == null) {
@@ -30,7 +30,7 @@ public class MortonQueue(public val level: Int, public val index: Int, public va
         warObject.node = node
     }
 
-    public fun collide(kdMap: KdMap, bullets: Array<Bullet>, units: Array<WarUnit>, callback: KdMap.OnCollideCallback) {
+    public fun collide(kdMap: KdMap, bullets: GdxArray<Bullet>, units: GdxArray<WarUnit>, callback: KdMap.OnCollideCallback) {
         mCacheBullets.addAll(bullets)
         mCacheUnits.addAll(units)
 
@@ -50,7 +50,7 @@ public class MortonQueue(public val level: Int, public val index: Int, public va
 
     }
 
-    private fun collide(bullets: Array<Bullet>, units: Array<WarUnit>, callback: KdMap.OnCollideCallback) {
+    private fun collide(bullets: GdxArray<Bullet>, units: GdxArray<WarUnit>, callback: KdMap.OnCollideCallback) {
         if (hasFirstNode()) {
             firstNode!!.collide(bullets, units, callback)
         }
