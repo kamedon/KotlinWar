@@ -23,7 +23,7 @@ public abstract class WarUnit() : GameObject() {
             it.dead ?: return
             moveFor(it, delta)
             weapon?.shoot(this, it, delta)?.let {
-                getParent().addActor(it)
+                team?.add(it)
             }
         }
     }
