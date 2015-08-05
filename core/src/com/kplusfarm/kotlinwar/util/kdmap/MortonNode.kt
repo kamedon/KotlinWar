@@ -1,6 +1,5 @@
 package com.kplusfarm.kotlinwar.util.kdmap
 
-import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.utils.Array
 import com.kplusfarm.kotlinwar.entity.GameObject
@@ -15,11 +14,12 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
     public var prev: MortonNode? = null
 
     synchronized public fun remove() {
-        if (next != null) {
-            next!!.prev = prev
+        next?.let {
+            it.prev = prev
         }
-        if (prev != null) {
-            prev!!.next = next
+
+        prev?.let {
+            it.next = next
         }
 
         if (mortonQueue.firstNode === this) {
@@ -39,12 +39,14 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
     }
 
     public fun collide(bullets: Array<Bullet>, units: Array<WarUnit>, callback: KdMap.OnCollideCallback) {
-        Gdx.app.log("collide","start")
+        Gdx.app.log("collide", "start")
         if (gameObject is WarUnit) {
             var unit = gameObject as WarUnit;
             for (i in 0..bullets.size - 1) {
-                if (bullets.items[i] != null && bullets.items[i].alive && gameObject.alive) {
-                    callback.onCollide(bullets.items[i], unit, bullets.items[i].collide(unit))
+                bullets.items[i]?.let {
+                    if (it.alive && gameObject.alive) {
+                        callback.onCollide(it, unit, it.collide(unit))
+                    }
                 }
             }
             if (gameObject.alive) {
@@ -54,25 +56,19 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
         } else if (gameObject is Bullet) {
             val bullet = gameObject as Bullet
             for (i in  0..units.size - 1) {
-                if (units.items[i] != null && units.items[i].alive && bullet.alive) {
-                    callback.onCollide(bullet, units.items[i], bullet.collide(units.items[i]))
+                units.items[i]?.let {
+                    if ( it.alive && bullet.alive) {
+                        callback.onCollide(bullet, it, bullet.collide(it))
+                    }
                 }
             }
             if (bullet.alive) {
                 bullets.add(bullet)
             }
         }
-        if (hasNext()) {
-            next!!.collide(bullets, units, callback)
-        }
+        next?.collide(bullets, units, callback)
     }
 
-    public fun getIndex(): Int {
-        return mortonQueue.index
-    }
-
-    public fun hasNext(): Boolean {
-        return next != null
-    }
+    val index: Int get() = mortonQueue.index
 
 }

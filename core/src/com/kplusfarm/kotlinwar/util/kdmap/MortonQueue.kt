@@ -1,9 +1,9 @@
 package com.kplusfarm.kotlinwar.util.kdmap
 
-import com.badlogic.gdx.utils.Array as GdxArray
 import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.bullet.Bullet
 import com.kplusfarm.kotlinwar.entity.unit.WarUnit
+import com.badlogic.gdx.utils.Array as GdxArray
 
 /**
  * Created by kamedon on 15/03/19.
@@ -51,17 +51,7 @@ public class MortonQueue(public val level: Int, public val index: Int, public va
     }
 
     private fun collide(bullets: GdxArray<Bullet>, units: GdxArray<WarUnit>, callback: KdMap.OnCollideCallback) {
-        if (hasFirstNode()) {
-            firstNode!!.collide(bullets, units, callback)
-        }
-    }
-
-    public fun hasFirstNode(): Boolean {
-        return firstNode != null
-    }
-
-    public fun lastNode(): Boolean {
-        return lastNode != null
+        firstNode?.collide(bullets, units, callback)
     }
 
 }

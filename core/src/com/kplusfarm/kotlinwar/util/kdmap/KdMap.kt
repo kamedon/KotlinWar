@@ -28,7 +28,6 @@ public class KdMap(public val width: Float, public val height: Float, public val
         for (i in 0..mLevelCount.count() - 1) {
             mLevelCount[i] = ((Math.pow(4.0, i.toDouble()) - 1) / 3).toInt()
         }
-        //        mMap = Array(mLevelCount[mLevelCount.size() - 1])
         var l = 0
         var c = 0
         mMap = Array(mLevelCount[mLevelCount.size() - 1], {
@@ -109,7 +108,7 @@ public class KdMap(public val width: Float, public val height: Float, public val
 
     public fun update(gameObject: GameObject) {
         val id = calcIndex(gameObject)
-        if (gameObject.node?.getIndex() !== id) {
+        if (gameObject.node?.index !== id) {
             gameObject.node?.move(mMap[id])
         }
     }
@@ -128,11 +127,6 @@ public class KdMap(public val width: Float, public val height: Float, public val
 
     public interface OnCollideCallback {
         public fun onCollide(bullet: Bullet, unit: WarUnit, colliding: Boolean)
-    }
-
-    public interface OnNearestCallback {
-        public fun isTargetUnit(unit: WarUnit, gameObject: GameObject): Boolean
-
     }
 
 }
