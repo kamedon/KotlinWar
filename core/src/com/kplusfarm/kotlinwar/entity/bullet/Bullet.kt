@@ -1,12 +1,10 @@
 package com.kplusfarm.kotlinwar.entity.bullet
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
-import com.badlogic.gdx.utils.Pools
 import com.kplusfarm.kotlinwar.entity.GameObject
-import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
+import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 
 /**
  * Created by kamedon on 7/27/15.
@@ -31,9 +29,14 @@ open class Bullet() : GameObject() {
 
         if (runtime > 3f) {
             remove()
-            Pools.free(this)
-            setColor(Color.OLIVE)
+            removeRun()
         }
 
+    }
+
+
+    fun collide(warUnit: WarUnit): Boolean {
+
+        return team != warUnit.team && Vector2.len(warUnit.centerX - centerX, warUnit.centerY - centerY) < radius + warUnit.radius
     }
 }
