@@ -9,6 +9,7 @@ import com.kplusfarm.kotlinwar.entity.bullet.Beam
 import com.kplusfarm.kotlinwar.entity.field.Team
 import com.kplusfarm.kotlinwar.entity.field.TeamCode
 import com.kplusfarm.kotlinwar.entity.ship.TransportCraft
+import com.kplusfarm.kotlinwar.entity.unit.Fighter
 import com.kplusfarm.kotlinwar.entity.unit.Humanoid
 import com.kplusfarm.kotlinwar.entity.weapon.BeamRifle
 import com.kplusfarm.kotlinwar.service.AssetsLoader
@@ -61,6 +62,21 @@ public class Field001Builder(width: Float, height: Float, level: Int, viewport: 
         unit.setPosition(width - unit.getWidth(), 600f)
         unit.setColor(Color.RED)
         team.add(unit)
+
+        val produceUnit = Fighter();
+        produceUnit.image = unit.image;
+        produceUnit.setColor(Color.RED)
+
+        var shipImage= WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
+        val ship = TransportCraft();
+        ship.produceUnit = produceUnit
+        ship.image = shipImage
+        ship.active()
+        ship.setPosition(width - ship.getWidth(), 100f)
+
+        team.add(ship)
+
+
         return team
     }
 }
