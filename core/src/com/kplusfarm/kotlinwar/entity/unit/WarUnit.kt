@@ -1,6 +1,7 @@
 package com.kplusfarm.kotlinwar.entity.unit
 
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.utils.Pools
 import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.bullet.Bullet
 import com.kplusfarm.kotlinwar.entity.weapon.Weapon
@@ -27,13 +28,15 @@ public abstract class WarUnit() : GameObject() {
 
     abstract fun moveFor(target: WarUnit, delta: Float)
 
-    fun hit(bullet : Bullet){
+    fun hit(bullet: Bullet) {
         setColor(Color.BLUE)
     }
 
-    fun copy(unit: WarUnit) {
-        image = unit.image
-        active()
+    fun copy(): WarUnit {
+        val unit = Pools.obtain(this.javaClass);
+        unit.image = image
+        unit.active()
+        return unit
     }
 
 }

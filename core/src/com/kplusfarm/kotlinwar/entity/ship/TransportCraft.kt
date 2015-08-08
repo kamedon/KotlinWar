@@ -14,11 +14,7 @@ public class TransportCraft() : Ship() {
     }
 
     override fun produce(): WarUnit? {
-        return produceUnit?.let {
-            val unit = Pools.obtain(it.javaClass);
-            unit.copy(it)
-            unit
-        }
+        return produceUnit?.copy()
     }
 
 
