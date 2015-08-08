@@ -49,6 +49,10 @@ class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: T
             }
             unit.target = nearUnit.unit
         }
+    }
 
+    override fun draw() {
+        super.draw()
+        myTeam.kdMap.debug(getCamera().combined);
     }
 }
