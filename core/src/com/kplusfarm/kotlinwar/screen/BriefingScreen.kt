@@ -15,8 +15,7 @@ import com.kplusfarm.kotlinwar.KotlinWar
 import com.kplusfarm.kotlinwar.entity.Funds
 import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 import com.kplusfarm.kotlinwar.entity.ship.Ship
-import com.kplusfarm.kotlinwar.entity.unit.Humanoid
-import com.kplusfarm.kotlinwar.entity.unit.WarUnit
+import com.kplusfarm.kotlinwar.entity.ship.TransportCraft
 import com.kplusfarm.kotlinwar.service.AssetsLoader
 import kotlin.properties.Delegates
 
@@ -58,7 +57,7 @@ public class BriefingScreen(game: KotlinWar) : BaseScreen(game) {
         val unitAsset = assetsLoader.getUnits()
         var warUnitAsset = WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
         repeat(5) {
-            val unit = Ship()
+            val unit = TransportCraft()
             unit.image = warUnitAsset
             unit.setPosition(50f, it * 65f)
             unit.region = warUnitAsset.acts.getKeyFrame(0f)
@@ -68,7 +67,7 @@ public class BriefingScreen(game: KotlinWar) : BaseScreen(game) {
         }
 
         repeat(5) {
-            val unit = Ship()
+            val unit = TransportCraft()
             unit.image = warUnitAsset
             unit.setPosition(battleFieldLayout.getWidth() - unit.getWidth() -50, it * 65f)
             unit.setColor(Color.GREEN)

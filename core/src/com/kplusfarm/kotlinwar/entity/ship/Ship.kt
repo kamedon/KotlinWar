@@ -8,12 +8,21 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 /**
  * Created by kamedon on 7/27/15.
  */
-public class Ship() : WarUnit() {
-    override fun moveFor(target: WarUnit, delta: Float) {
-    }
+public abstract class Ship() : WarUnit() {
+    var produceUnit: WarUnit? = null
 
     override fun act(delta: Float) {
         super.act(delta)
-//        Gdx.app.log("ship", centerX.toString() + "/" + centerY)
+        val unit = produce(delta)
+        unit?.let {
+            team?.add(it)
+        }
+    }
+
+    abstract fun produce(delta: Float): WarUnit?;
+
+    override fun reset() {
+        super.reset()
+        produceUnit = null
     }
 }
