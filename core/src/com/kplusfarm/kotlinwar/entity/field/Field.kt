@@ -51,6 +51,7 @@ class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: T
                 if (!enemy.dead) {
                     val len = Vector2.len(unit.centerX - enemy.centerX, unit.centerY - enemy.centerY)
                     if (nearUnit.distance > len) {
+                        nearUnit.distance = len
                         nearUnit.unit = enemy
                     }
                 }

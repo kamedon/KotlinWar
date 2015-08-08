@@ -48,8 +48,14 @@ public abstract class WarUnit() : GameObject() {
         unit.image = image
         unit.hp = hp
         unit.setColor(getColor())
+        unit.weapon = weapon
         unit.active()
         return unit
     }
 
+    override fun reset() {
+        super.reset()
+        weapon = null
+        target = null
+    }
 }

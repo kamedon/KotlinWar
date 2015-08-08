@@ -13,6 +13,7 @@ open class Bullet() : GameObject() {
     val attack: Float = 10f
     val velocity: Float = 5f
     var degree: Float = 0f;
+    val deadTime: Float = 3f
 
     var to: Vector2? = null
         set(value) {
@@ -22,13 +23,14 @@ open class Bullet() : GameObject() {
             }
         }
 
+
     override fun act(delta: Float) {
         super.act(delta)
         to?.let {
             moveBy(velocity * MathUtils.cos(degree), velocity * MathUtils.sin(degree))
         }
 
-        if (runtime > 3f) {
+        if (runtime >= deadTime) {
             remove()
             removeRun()
         }

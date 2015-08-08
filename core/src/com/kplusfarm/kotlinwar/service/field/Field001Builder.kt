@@ -38,6 +38,7 @@ public class Field001Builder(width: Float, height: Float, level: Int, viewport: 
         val produceUnit = Humanoid();
         var shipImage= WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
         produceUnit.image = image;
+        produceUnit.weapon = unit.weapon
 
         val ship = TransportCraft();
         ship.produceUnit = produceUnit
@@ -66,6 +67,7 @@ public class Field001Builder(width: Float, height: Float, level: Int, viewport: 
         val produceUnit = Fighter();
         produceUnit.image = unit.image;
         produceUnit.setColor(Color.RED)
+        produceUnit.weapon = unit.weapon
 
         var shipImage= WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
         val ship = TransportCraft();
