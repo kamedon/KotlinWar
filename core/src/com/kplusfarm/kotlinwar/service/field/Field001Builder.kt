@@ -20,63 +20,57 @@ import com.kplusfarm.kotlinwar.util.kdmap.KdMap
  */
 public class Field001Builder(width: Float, height: Float, level: Int, viewport: Viewport, val  assetsLoader: AssetsLoader) : FieldBuilder(width, height, level, viewport) {
     override fun createEnemyTeam(): Team {
-        val team = Team(TeamCode.RED, KdMap(width, height, 3))
-
+        val team = Team(TeamCode.GREEN, KdMap(width, height, 3))
         val unitAsset = assetsLoader.getUnits()
-        val unit = Pools.obtain(javaClass<Humanoid>())
-        val image = WarUnitImage(Animation(0.125f, unitAsset.findRegions("unit")))
-        unit.image = image;
+        val unitImage = WarUnitImage(Animation(1f, unitAsset.findRegion("unit")))
+        val bulletImage = WarUnitImage(Animation(1f, unitAsset.findRegion("bullet")))
 
         val beam = Beam()
-        beam.image = WarUnitImage(Animation(1f, unitAsset.findRegion("bullet")))
+        beam.image = bulletImage
+        val weapon = BeamRifle(unitAsset.findRegion("bullet"), beam)
 
-        unit.weapon = BeamRifle(unitAsset.findRegion("bullet"), beam)
-        unit.active()
+        val produceUnit = Fighter();
+        produceUnit.image = unitImage;
+        produceUnit.weapon = weapon
 
-        team.add(unit)
-
-        val produceUnit = Humanoid();
-        var shipImage= WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
-        produceUnit.image = image;
-        produceUnit.weapon = unit.weapon
-
-        val ship = TransportCraft();
-        ship.produceUnit = produceUnit
-        ship.image = shipImage
-        ship.active()
-
-        team.add(ship)
-
-
+        for (i in 0..6) {
+            var shipImage = WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
+            val ship = TransportCraft();
+            ship.produceUnit = produceUnit
+            ship.image = shipImage
+            ship.active()
+            ship.setPosition(0f, 100f * i)
+            team.add(ship)
+        }
         return team
     }
 
     override fun createMyTeam(): Team {
         val team = Team(TeamCode.GREEN, KdMap(width, height, 3))
         val unitAsset = assetsLoader.getUnits()
-        val unit = Pools.obtain(javaClass<Humanoid>())
-        unit.image = WarUnitImage(Animation(0.125f, unitAsset.findRegions("unit")))
+        val unitImage = WarUnitImage(Animation(1f, unitAsset.findRegion("unit")))
+        val bulletImage = WarUnitImage(Animation(1f, unitAsset.findRegion("bullet")))
+
         val beam = Beam()
-        beam.image = WarUnitImage(Animation(1f, unitAsset.findRegion("bullet")))
-        unit.weapon = BeamRifle(unitAsset.findRegion("bullet"), beam)
-        unit.active()
-        unit.setPosition(width - unit.getWidth(), 600f)
-        unit.setColor(Color.RED)
-        team.add(unit)
+        beam.image = bulletImage
+        val weapon = BeamRifle(unitAsset.findRegion("bullet"), beam)
 
         val produceUnit = Fighter();
-        produceUnit.image = unit.image;
+        produceUnit.image = unitImage;
         produceUnit.setColor(Color.RED)
-        produceUnit.weapon = unit.weapon
+        produceUnit.weapon = weapon
 
-        var shipImage= WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
-        val ship = TransportCraft();
-        ship.produceUnit = produceUnit
-        ship.image = shipImage
-        ship.active()
-        ship.setPosition(width - ship.getWidth(), 100f)
+        for (i in 0..6) {
+            var shipImage = WarUnitImage(Animation(0.125f, unitAsset.findRegions("ship")))
+            val ship = TransportCraft();
+            ship.produceUnit = produceUnit
+            ship.image = shipImage
+            ship.setColor(Color.RED)
+            ship.active()
+            ship.setPosition(width - ship.getWidth(), 100f * i)
+            team.add(ship)
+        }
 
-        team.add(ship)
 
 
         return team
