@@ -31,4 +31,9 @@ public abstract class WarUnit() : GameObject() {
         setColor(Color.BLUE)
     }
 
+    fun copy(unit: WarUnit) {
+        image = unit.image
+        active()
+    }
+
 }
