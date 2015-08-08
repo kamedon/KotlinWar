@@ -11,10 +11,16 @@ import com.kplusfarm.kotlinwar.entity.weapon.Weapon
  */
 public abstract class WarUnit() : GameObject() {
     var target: WarUnit? = null
+        set(value) {
+            $target = value
+            nearTime = 0f
+        }
     var weapon: Weapon? = null;
     var hp = 100f
     var velocity = 2f
     var angle = 0.3f
+    var nearTime: Float = 1f;
+    private var nearSpan: Float = 0f;
 
     override fun act(delta: Float) {
         super.act(delta)
@@ -57,5 +63,13 @@ public abstract class WarUnit() : GameObject() {
         super.reset()
         weapon = null
         target = null
+    }
+
+    fun needNear(): Boolean {
+        return target == null || nearTime >= nearSpan
+    }
+
+    fun nearRuntime(delta: Float) {
+        nearTime += delta
     }
 }

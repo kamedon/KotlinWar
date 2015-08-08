@@ -11,7 +11,7 @@ public class TransportCraft() : Ship() {
 
     init {
         hp = 500f
-        produceTime = 1f
+        produceTime = 3f
     }
 
     override fun produce(): WarUnit? {
