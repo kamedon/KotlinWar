@@ -12,6 +12,7 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 public class MortonNode(public var mortonQueue: MortonQueue, public var gameObject: GameObject) {
     public var next: MortonNode? = null
     public var prev: MortonNode? = null
+    val index: Int get() = mortonQueue.index
 
     synchronized public fun remove() {
         next?.let {
@@ -39,7 +40,6 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
     }
 
     public fun collide(bullets: Array<Bullet>, units: Array<WarUnit>, callback: KdMap.OnCollideCallback) {
-        Gdx.app.log("collide", "start")
         if (gameObject is WarUnit) {
             var unit = gameObject as WarUnit;
             for (i in 0..bullets.size - 1) {
@@ -69,6 +69,5 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
         next?.collide(bullets, units, callback)
     }
 
-    val index: Int get() = mortonQueue.index
 
 }

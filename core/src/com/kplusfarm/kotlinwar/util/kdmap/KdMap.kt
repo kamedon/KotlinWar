@@ -88,7 +88,6 @@ public class KdMap(public val width: Float, public val height: Float, public val
         val upLevel = upLevelMortonNumber(xor, 0, 0)
         val level = this.level - upLevel
         val morton = mortonBottom shr (upLevel * 2)
-        //        Gdx.app.log("kdmap", "index" + mLevelCount[level] + morton);
         return mLevelCount[level] + morton
     }
 
