@@ -26,5 +26,6 @@ abstract class Weapon(var region: TextureAtlas.AtlasRegion?, var bullet: Bullet?
     override fun reset() {
         bullet = null
         region = null
+        r = 0f
     }
 }

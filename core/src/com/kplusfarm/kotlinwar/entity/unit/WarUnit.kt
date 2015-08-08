@@ -36,7 +36,6 @@ public abstract class WarUnit() : GameObject() {
     abstract fun moveFor(target: WarUnit, delta: Float)
 
     fun hit(bullet: Bullet) {
-        //        setColor(Color.BLUE)
         hp -= bullet.attack;
         if (hp <= 0) {
             die();
