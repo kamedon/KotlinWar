@@ -9,9 +9,10 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 /**
  * Created by kamedon on 15/03/19.
  */
-public class MortonNode(public var mortonQueue: MortonQueue, public var gameObject: GameObject) {
+public class MortonNode(public var mortonQueue: MortonQueue?, public var gameObject: GameObject?) {
     public var next: MortonNode? = null
     public var prev: MortonNode? = null
+    val index: Int get() = mortonQueue!!.index
 
     synchronized public fun remove() {
         next?.let {
@@ -22,11 +23,11 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
             it.next = next
         }
 
-        if (mortonQueue.firstNode === this) {
-            mortonQueue.firstNode = next
+        if (mortonQueue?.firstNode === this) {
+            mortonQueue?.firstNode = next
         }
-        if (mortonQueue.lastNode === this) {
-            mortonQueue.lastNode = prev
+        if (mortonQueue?.lastNode === this) {
+            mortonQueue?.lastNode = prev
         }
         prev = null
         next = null
@@ -39,17 +40,16 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
     }
 
     public fun collide(bullets: Array<Bullet>, units: Array<WarUnit>, callback: KdMap.OnCollideCallback) {
-        Gdx.app.log("collide", "start")
         if (gameObject is WarUnit) {
             var unit = gameObject as WarUnit;
             for (i in 0..bullets.size - 1) {
                 bullets.items[i]?.let {
-                    if (it.alive && gameObject.alive) {
+                    if (it.alive && gameObject!!.alive) {
                         callback.onCollide(it, unit, it.collide(unit))
                     }
                 }
             }
-            if (gameObject.alive) {
+            if (gameObject!!.alive) {
                 units.add(unit)
             }
 
@@ -69,6 +69,10 @@ public class MortonNode(public var mortonQueue: MortonQueue, public var gameObje
         next?.collide(bullets, units, callback)
     }
 
-    val index: Int get() = mortonQueue.index
+    fun destory() {
+        gameObject = null
+        mortonQueue = null
+    }
+
 
 }

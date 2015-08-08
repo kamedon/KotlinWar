@@ -37,7 +37,6 @@ public class MortonQueue(public val level: Int, public val index: Int, public va
         collide(mCacheBullets, mCacheUnits, callback)
         val q = kdMap.getQueue(index)
         q.collide(mCacheBullets, mCacheUnits, callback)
-        //
         val start = (morton shl 2) + mMap.getLevelCount(level + 1)
         for (i in 0..3) {
             val next = start + i

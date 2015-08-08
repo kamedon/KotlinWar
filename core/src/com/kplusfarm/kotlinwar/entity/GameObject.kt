@@ -85,6 +85,7 @@ abstract public class GameObject() : Actor(), Pool.Poolable {
         Pools.free(this)
         setColor(Color.OLIVE)
         node?.remove();
+        node?.destory()
     }
 
 

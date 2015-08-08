@@ -38,12 +38,17 @@ public class Team(val code: TeamCode, val kdMap: KdMap) : Group() {
         bulletGroup.add(bullet)
     }
 
-    fun getUnit(i: Int): WarUnit{
-        return unitGroup.getChildren().get(i) as WarUnit
+    fun getUnit(i: Int): WarUnit {
+        return unitGroup.get(i)
     }
 
-    fun getBullet(i: Int): Bullet{
-        return bulletGroup.getChildren().get(i) as Bullet
+    fun getBullet(i: Int): Bullet {
+        return bulletGroup.get(i)
+    }
+
+    fun dead() {
+        unitGroup.dead()
+        bulletGroup.dead()
     }
 
 

@@ -16,8 +16,14 @@ class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: T
     }
 
     fun update(delta: Float) {
+        collide(delta);
         near(delta);
-        collide(delta)
+        dead();
+    }
+
+    private fun dead() {
+        enemyTeam.dead();
+        myTeam.dead();
     }
 
     private fun collide(delta: Float) {
@@ -40,12 +46,19 @@ class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: T
         val nearUnit = NearUnit()
         for (i in 0..team.unitSize - 1) {
             var unit = team.getUnit(i)
-            for (n in 0..enemy.unitSize - 1) {
-                var enemy = enemy.getUnit(n)
-                val len = Vector2.len(unit.centerX - enemy.centerX, unit.centerY - enemy.centerY)
-                if (nearUnit.distance > len) {
-                    nearUnit.unit = enemy
+            unit.nearRuntime(delta);
+            if(unit.needNear()){
+                for (n in 0..enemy.unitSize - 1) {
+                    var enemy = enemy.getUnit(n)
+                    if (!enemy.dead) {
+                        val len = Vector2.len(unit.centerX - enemy.centerX, unit.centerY - enemy.centerY)
+                        if (nearUnit.distance > len) {
+                            nearUnit.distance = len
+                            nearUnit.unit = enemy
+                        }
+                    }
                 }
+
             }
             unit.target = nearUnit.unit
         }

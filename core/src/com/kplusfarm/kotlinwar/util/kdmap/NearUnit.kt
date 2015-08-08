@@ -8,5 +8,5 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
  */
 public class NearUnit() {
     var unit: WarUnit? = null
-    var distance: Double = Double.MAX_VALUE
+    var distance: Float = Float.MAX_VALUE
 }

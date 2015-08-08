@@ -10,14 +10,14 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 public class TransportCraft() : Ship() {
 
     init {
-        produceTime = 1f
+        hp = 500f
+        produceTime = 3f
     }
 
     override fun produce(): WarUnit? {
-        return produceUnit?.let {
-            val unit = Pools.obtain(it.javaClass);
-            unit.copy(it)
-            unit
+        return produceUnit?.copy()?.let {
+            it.setPosition(getX(), getY())
+            it
         }
     }
 
