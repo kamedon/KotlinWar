@@ -12,6 +12,7 @@ import com.kplusfarm.kotlinwar.entity.weapon.Weapon
 public abstract class WarUnit() : GameObject() {
     var target: WarUnit? = null
     var weapon: Weapon? = null;
+    var hp = 100f
     var velocity = 2f
     var angle = 0.3f
 
@@ -29,12 +30,24 @@ public abstract class WarUnit() : GameObject() {
     abstract fun moveFor(target: WarUnit, delta: Float)
 
     fun hit(bullet: Bullet) {
-        setColor(Color.BLUE)
+//        setColor(Color.BLUE)
+        hp -= bullet.attack;
+        if(hp <= 0){
+            die();
+        }
+    }
+
+    private fun die() {
+        dead = true
+        remove()
+        removeRun()
     }
 
     fun copy(): WarUnit {
         val unit = Pools.obtain(this.javaClass);
         unit.image = image
+        unit.hp = hp
+        unit.setColor(getColor())
         unit.active()
         return unit
     }
