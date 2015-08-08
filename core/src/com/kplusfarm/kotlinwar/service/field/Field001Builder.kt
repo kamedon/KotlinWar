@@ -57,10 +57,8 @@ public class Field001Builder(width: Float, height: Float, level: Int, viewport: 
         val beam = Beam()
         beam.image = WarUnitImage(Animation(1f, unitAsset.findRegion("bullet")))
         unit.weapon = BeamRifle(unitAsset.findRegion("bullet"), beam)
-
         unit.active()
-        unit.active()
-        unit.setPosition(width - unit.getWidth(), 0f)
+        unit.setPosition(width - unit.getWidth(), 600f)
         unit.setColor(Color.RED)
         team.add(unit)
         return team

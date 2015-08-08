@@ -1,5 +1,7 @@
 package com.kplusfarm.kotlinwar.entity.ship
 
+import com.badlogic.gdx.utils.Pools
+import com.kplusfarm.kotlinwar.entity.unit.Humanoid
 import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 
 /**
@@ -7,10 +9,19 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
  */
 public class TransportCraft() : Ship() {
 
-    override fun produce(delta: Float): WarUnit? {
-        return null
+    init {
+        produceTime = 1f
     }
 
-    override fun moveFor(target: WarUnit, delta: Float) {
+    override fun produce(): WarUnit? {
+        return produceUnit?.let {
+            val unit = Pools.obtain(it.javaClass);
+            unit.image = it.image
+            unit.active()
+            unit
+        }
     }
+
+
 }
+

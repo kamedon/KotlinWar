@@ -10,19 +10,27 @@ import com.kplusfarm.kotlinwar.entity.unit.WarUnit
  */
 public abstract class Ship() : WarUnit() {
     var produceUnit: WarUnit? = null
+    var produceSpan: Float = 3f
+    var produceTime: Float = 0f
 
     override fun act(delta: Float) {
         super.act(delta)
-        val unit = produce(delta)
-        unit?.let {
-            team?.add(it)
+        produceTime += delta
+        if (produceTime >= produceSpan) {
+            produce()?.let {
+                team?.add(it)
+            }
+            produceTime = 0f;
         }
     }
 
-    abstract fun produce(delta: Float): WarUnit?;
+    abstract fun produce(): WarUnit?;
 
     override fun reset() {
         super.reset()
         produceUnit = null
+    }
+
+    override fun moveFor(target: WarUnit, delta: Float) {
     }
 }
