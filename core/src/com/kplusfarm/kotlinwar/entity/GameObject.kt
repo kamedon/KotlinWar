@@ -1,10 +1,9 @@
 package com.kplusfarm.kotlinwar.entity
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.math.Circle
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.utils.Pool
 import com.badlogic.gdx.utils.Pools
@@ -22,13 +21,14 @@ abstract public class GameObject() : Actor(), Pool.Poolable {
     //
     var image: WarUnitImage? = null
     var region: TextureRegion? = null
+    var circle: Circle = Circle()
 
     var team: Team? = null
 
     //
-    var centerX: Float = 0f
-    var centerY: Float = 0f
-    var radius = 0f
+    val centerX: Float get() = circle.x
+    val centerY: Float get() = circle.y
+    val radius: Float get() = circle.radius
 
     //
     val alive: Boolean get() = !dead
@@ -48,20 +48,20 @@ abstract public class GameObject() : Actor(), Pool.Poolable {
             val img = it.acts.getKeyFrame(0f)
             setSize(img.getRegionWidth().toFloat(), img.getRegionHeight().toFloat())
             setOrigin(img.getRegionWidth() / 2f, img.getRegionHeight() / 2f)
-            radius = getWidth() / 2
+            circle.radius = getWidth() / 2
             updateNode();
         }
 
     }
 
     override fun positionChanged() {
-        centerX = getX() + getOriginX()
-        centerY = getY() + getOriginY()
+        circle.x = getX() + getOriginX()
+        circle.y = getY() + getOriginY()
         updateNode()
     }
 
     private fun updateNode() {
-        if(node != null){
+        if (node != null) {
             team?.updateNode(this);
         }
     }

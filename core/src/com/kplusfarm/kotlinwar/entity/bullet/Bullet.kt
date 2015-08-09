@@ -1,16 +1,16 @@
 package com.kplusfarm.kotlinwar.entity.bullet
 
-import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.math.Vector2
 import com.kplusfarm.kotlinwar.entity.GameObject
+import com.kplusfarm.kotlinwar.entity.field.Team
 import com.kplusfarm.kotlinwar.entity.unit.WarUnit
 
 /**
  * Created by kamedon on 7/27/15.
  */
 open class Bullet() : GameObject() {
-    val attack: Float = 10f
+    val attack: Float = 40f
     val velocity: Float = 5f
     var degree: Float = 0f;
     val deadTime: Float = 3f
@@ -40,10 +40,15 @@ open class Bullet() : GameObject() {
 
     fun collide(warUnit: WarUnit): Boolean {
         val b = team != warUnit.team && Vector2.len(warUnit.centerX - centerX, warUnit.centerY - centerY) < radius + warUnit.radius
-        if(b){
+        if (b) {
             remove()
             removeRun()
         }
         return b;
     }
+
+    fun add(team: Team?) {
+        team?.add(this)
+    }
+
 }

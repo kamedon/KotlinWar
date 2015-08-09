@@ -1,6 +1,6 @@
 package com.kplusfarm.kotlinwar.entity.unit
 
-import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.math.Intersector
 import com.badlogic.gdx.utils.Pools
 import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.bullet.Bullet
@@ -25,15 +25,20 @@ public abstract class WarUnit() : GameObject() {
     override fun act(delta: Float) {
         super.act(delta)
         target?.let {
-            it.dead ?: return
-            moveFor(it, delta)
-            weapon?.shoot(this, it, delta)?.let {
-                team?.add(it)
+            if (it.alive) {
+                moveFor(it, delta)
+                weapon?.shoot(this, it, delta)?.add(team)
+            } else {
+                target = null
             }
         }
     }
 
     abstract fun moveFor(target: WarUnit, delta: Float)
+
+    fun inside(): Boolean {
+        return Intersector.overlaps(circle, team!!.rect)
+    }
 
     fun hit(bullet: Bullet) {
         hp -= bullet.attack;
@@ -44,8 +49,6 @@ public abstract class WarUnit() : GameObject() {
 
     private fun die() {
         dead = true
-        remove()
-        removeRun()
     }
 
     fun copy(): WarUnit {

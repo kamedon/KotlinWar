@@ -27,7 +27,7 @@ class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: T
     private fun logCount() {
         val myCount = myTeam.unitGroup.size + myTeam.bulletGroup.size
         val enemyCount = enemyTeam.unitGroup.size + enemyTeam.bulletGroup.size
-        Gdx.app.log("update", "my:" + myCount + "/enemy:"+enemyCount);
+        Gdx.app.log("update", "::" + myCount + "," + enemyCount);
     }
 
     private fun dead() {

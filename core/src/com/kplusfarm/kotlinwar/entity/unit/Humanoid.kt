@@ -10,10 +10,15 @@ import com.kplusfarm.kotlinwar.entity.asset.WarUnitImage
 class Humanoid() : WarUnit() {
 
     override fun moveFor(target: WarUnit, delta: Float) {
+        val x = getX()
+        val y = getY()
         val point = Vector2(target.centerX - centerX, target.centerY - centerY)
         val r = point.angleRad()
         val d = point.angle()
         moveBy(velocity * MathUtils.cos(r), velocity * MathUtils.sin(r))
+        if (!inside()) {
+            setPosition(x, y)
+        }
         setRotation(d - 90)
     }
 
