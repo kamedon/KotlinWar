@@ -45,7 +45,6 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
             batch.draw(bg, 0f, 0f)
             batch.end()
             field.update(delta);
-            field.act(delta)
             field.draw()
         }
         fpsLogger.log()

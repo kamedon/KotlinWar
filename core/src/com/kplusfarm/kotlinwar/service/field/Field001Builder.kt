@@ -39,7 +39,7 @@ public class Field001Builder(width: Float, height: Float, level: Int, viewport: 
             ship.produceUnit = produceUnit
             ship.image = shipImage
             ship.active()
-            ship.setPosition(0f, 100f * i)
+            ship.setPosition(0f, 50 + 50f * i)
             team.add(ship)
         }
         return team
@@ -67,7 +67,7 @@ public class Field001Builder(width: Float, height: Float, level: Int, viewport: 
             ship.image = shipImage
             ship.setColor(Color.RED)
             ship.active()
-            ship.setPosition(width - ship.getWidth(), 100f * i)
+            ship.setPosition(width - ship.getWidth(), 50 + 50f * i)
             team.add(ship)
         }
 

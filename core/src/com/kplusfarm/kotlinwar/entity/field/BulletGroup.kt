@@ -16,8 +16,9 @@ public class BulletGroup(val team: Team) : Group() {
         addActor(bullet)
         kdMap.add(bullet)
     }
-    fun get(i: Int): Bullet{
-        return  getChildren().get(i) as Bullet
+
+    fun get(i: Int): Bullet {
+        return getChildren().get(i) as Bullet
     }
 
     fun dead() {

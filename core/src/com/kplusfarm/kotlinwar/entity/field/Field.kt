@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.viewport.Viewport
+import com.kplusfarm.kotlinwar.util.extention.size
 import com.kplusfarm.kotlinwar.util.kdmap.NearUnit
 
 /**
@@ -16,9 +17,17 @@ class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: T
     }
 
     fun update(delta: Float) {
+        logCount();
         collide(delta);
-        near(delta);
         dead();
+        act(delta)
+        near(delta);
+    }
+
+    private fun logCount() {
+        val myCount = myTeam.unitGroup.size + myTeam.bulletGroup.size
+        val enemyCount = enemyTeam.unitGroup.size + enemyTeam.bulletGroup.size
+        Gdx.app.log("update", "my:" + myCount + "/enemy:"+enemyCount);
     }
 
     private fun dead() {
@@ -47,7 +56,7 @@ class Field(viewport: Viewport, public val myTeam: Team, public val enemyTeam: T
         for (i in 0..team.unitSize - 1) {
             var unit = team.getUnit(i)
             unit.nearRuntime(delta);
-            if(unit.needNear()){
+            if (unit.needNear()) {
                 for (n in 0..enemy.unitSize - 1) {
                     var enemy = enemy.getUnit(n)
                     if (!enemy.dead) {
