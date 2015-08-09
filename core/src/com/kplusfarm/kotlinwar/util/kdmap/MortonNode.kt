@@ -41,15 +41,15 @@ public class MortonNode(public var mortonQueue: MortonQueue?, public var gameObj
 
     public fun collide(bullets: Array<Bullet>, units: Array<WarUnit>, callback: KdMap.OnCollideCallback) {
         if (gameObject is WarUnit) {
-            var unit = gameObject as WarUnit;
+            val unit = gameObject as WarUnit;
             for (i in 0..bullets.size - 1) {
                 bullets.items[i]?.let {
-                    if (it.alive && gameObject!!.alive) {
+                    if (it.alive && unit.alive) {
                         callback.onCollide(it, unit, it.collide(unit))
                     }
                 }
             }
-            if (gameObject!!.alive) {
+            if (unit.alive) {
                 units.add(unit)
             }
 

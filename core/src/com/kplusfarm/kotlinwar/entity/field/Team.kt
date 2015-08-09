@@ -1,6 +1,6 @@
 package com.kplusfarm.kotlinwar.entity.field
 
-import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.math.Rectangle
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.kplusfarm.kotlinwar.entity.GameObject
 import com.kplusfarm.kotlinwar.entity.bullet.Bullet
@@ -16,13 +16,16 @@ public class Team(val code: TeamCode, val kdMap: KdMap) : Group() {
     val unitSize: Int get() = unitGroup.getChildren().size
     val bulletSize: Int get() = bulletGroup.getChildren().size
 
+    val rect: Rectangle
 
     init {
         bulletGroup = BulletGroup(this)
         unitGroup = UnitGroup(this)
         addActor(unitGroup)
         addActor(bulletGroup)
+        rect = Rectangle(0f, 0f, kdMap.width.toFloat(), kdMap.height.toFloat())
     }
+
 
     fun updateNode(gameObject: GameObject) {
         kdMap.update(gameObject)

@@ -15,8 +15,8 @@ import com.badlogic.gdx.utils.Array as GdxArray
 class UnitGroup(val team: Team) : Group() {
 
     val kdMap: KdMap get() = team.kdMap
-    val cacheBullets: SnapshotArray<Bullet> = SnapshotArray()
-    val cacheUnits: SnapshotArray<WarUnit> = SnapshotArray()
+    val cacheBullets: GdxArray<Bullet> = GdxArray()
+    val cacheUnits: GdxArray<WarUnit> = GdxArray()
     val callback = object : KdMap.OnCollideCallback {
 
         override fun onCollide(bullet: Bullet, unit: WarUnit, colliding: Boolean) {
@@ -38,19 +38,19 @@ class UnitGroup(val team: Team) : Group() {
     }
 
     fun collide(bullets: BulletGroup) {
-        team.kdMap.collide(0, bullets.kdMap, GdxArray(cacheBullets.begin()), GdxArray(cacheUnits.begin()), callback);
-        cacheBullets.end();
-        cacheUnits.end();
+        team.kdMap.collide(0, bullets.kdMap, cacheBullets, cacheUnits, callback);
     }
 
     fun dead() {
-        for (i in 0..getChildren().size - 1) {
-            val unit = get(i)
-            unit.target?.let {
-                if (it.dead) {
-                    unit.target = null
-                }
+        val units = getChildren().begin();
+        for (i in 0..units.size() - 1) {
+            val unit = units[i] as WarUnit?
+            if (unit != null && unit.dead) {
+                unit.target = null
+                unit.remove()
+                unit.removeRun()
             }
         }
+        getChildren().end()
     }
 }
