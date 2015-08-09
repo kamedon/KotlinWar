@@ -19,6 +19,7 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
     private var uiStage: Stage by Delegates.notNull()
     private var fpsLogger: FPSLogger by Delegates.notNull()
     private var bg: Sprite by Delegates.notNull()
+    private val fps = 0.016666667f
 
     override fun show() {
         fpsLogger = FPSLogger()
@@ -37,6 +38,7 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
     }
 
     override fun render(delta: Float) {
+        val d = Math.min(fps, delta)
         gameCamera.update()
         uiCamera.update()
         batch.setProjectionMatrix(uiCamera.combined)
@@ -44,7 +46,7 @@ public class BattleScreen(game: KotlinWar) : BaseScreen(game) {
             batch.begin()
             batch.draw(bg, 0f, 0f)
             batch.end()
-            field.update(delta);
+            field.update(d);
             field.draw()
         }
         fpsLogger.log()
